@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import ResponsiveNavbar from '@/components/ResponsiveNavbar';
 
 interface News {
   _id: string;
@@ -66,19 +67,7 @@ export default function NewsDetail() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="bg-green-700 text-white sticky top-0 z-50 shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold">
-            🌙 Pemhida Tegal
-          </Link>
-          <div className="flex gap-6">
-            <Link href="/" className="hover:text-green-200">Beranda</Link>
-            <Link href="/news" className="hover:text-green-200">Berita</Link>
-            <Link href="/services" className="hover:text-green-200">Jasa</Link>
-            <Link href="/contact" className="hover:text-green-200">Kontak</Link>
-          </div>
-        </div>
-      </nav>
+      <ResponsiveNavbar activePage="news" />
 
       {/* Article Content */}
       <div className="max-w-4xl mx-auto px-4 py-12 scroll-reveal scroll-reveal-delay-100">

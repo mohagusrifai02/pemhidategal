@@ -265,14 +265,14 @@ export default function Home() {
         <h2 className="text-4xl font-bold text-gray-800 mb-8 text-center">Layanan Kami</h2>
         <div className="grid md:grid-cols-4 gap-6">
           <div className="bg-green-50 p-6 rounded-lg text-center hover:bg-green-100 transition scroll-reveal scroll-reveal-delay-100">
-            <div className="text-4xl mb-4">📚</div>
-            <h3 className="text-xl font-semibold text-green-800 mb-2">Program Pendidikan</h3>
-            <p className="text-gray-600">Beasiswa dan program pembinaan akademik</p>
+            <div className="text-4xl mb-4">🎨</div>
+            <h3 className="text-xl font-semibold text-green-800 mb-2">Jasa Desain Grafis</h3>
+            <p className="text-gray-600">Desain grafis kreatif untuk brand, poster, dan konten promosi</p>
           </div>
           <div className="bg-green-50 p-6 rounded-lg text-center hover:bg-green-100 transition scroll-reveal scroll-reveal-delay-200">
-            <div className="text-4xl mb-4">💼</div>
-            <h3 className="text-xl font-semibold text-green-800 mb-2">Pelatihan Keterampilan</h3>
-            <p className="text-gray-600">Program pelatihan dan pengembangan usaha</p>
+            <div className="text-4xl mb-4">📖</div>
+            <h3 className="text-xl font-semibold text-green-800 mb-2">Publish Novel</h3>
+            <p className="text-gray-600">Pemhida membuat karya novel yang bisa dibaca di website, serta jasa ketik, ide, plot, dan penerbitan</p>
           </div>
           <div className="bg-green-50 p-6 rounded-lg text-center hover:bg-green-100 transition scroll-reveal scroll-reveal-delay-300">
             <div className="text-4xl mb-4">💻</div>
@@ -280,9 +280,9 @@ export default function Home() {
             <p className="text-gray-600">Pembuatan website profesional untuk bisnis</p>
           </div>
           <div className="bg-green-50 p-6 rounded-lg text-center hover:bg-green-100 transition scroll-reveal scroll-reveal-delay-400">
-            <div className="text-4xl mb-4">🤝</div>
-            <h3 className="text-xl font-semibold text-green-800 mb-2">Pemberdayaan</h3>
-            <p className="text-gray-600">Program pemberdayaan ekonomi masyarakat</p>
+            <div className="text-4xl mb-4">🧾</div>
+            <h3 className="text-xl font-semibold text-green-800 mb-2">Jasa Accounting</h3>
+            <p className="text-gray-600">Layanan akuntansi dan pembukuan untuk UKM dan usaha kecil</p>
           </div>
         </div>
         <div className="text-center mt-8">

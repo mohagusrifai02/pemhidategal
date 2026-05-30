@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import ResponsiveNavbar from '@/components/ResponsiveNavbar';
 
 export default function ServicesPage() {
   const [activeTab, setActiveTab] = useState('website');
@@ -21,43 +22,43 @@ export default function ServicesPage() {
       price: 'Konsultasi gratis untuk penawaran terbaik'
     },
     education: {
-      title: 'Program Pendidikan',
-      description: 'Kami menyediakan berbagai program pendidikan untuk generasi muda',
+      title: 'Jasa Desain Grafis',
+      description: 'Layanan desain grafis profesional untuk brand, poster, dan konten visual',
       features: [
-        'Kursus gratis untuk anak-anak',
-        'Program beasiswa',
-        'Bimbingan akademik',
-        'Pelatihan keahlian',
-        'Workshop dan seminar',
-        'Mentoring personal'
+        'Logo dan identitas visual',
+        'Desain poster dan brosur',
+        'Konten media sosial',
+        'Branding konsisten',
+        'Desain majalah dan katalog',
+        'Revisi desain cepat'
       ],
-      price: 'Terjangkau dan tersedia beasiswa'
+      price: 'Harga kompetitif sesuai kebutuhan proyek'
     },
     training: {
-      title: 'Pelatihan Keterampilan',
-      description: 'Program pelatihan untuk meningkatkan kompetensi dan membuka peluang usaha',
+      title: 'Publish Novel',
+      description: 'Pemhida membuat karya novel yang bisa dibaca di website, plus layanan ketik, ide, plot, dan penerbitan.',
       features: [
-        'Pelatihan teknis dan non-teknis',
-        'Sertifikasi profesional',
-        'Praktik langsung',
-        'Job placement assistance',
-        'Entrepreneurship training',
-        'Financial literacy'
+        'Pembuatan karya novel untuk website Pemhida',
+        'Jasa ketik dan penulisan naskah',
+        'Pengembangan ide dan penyusunan plot',
+        'Editing dan proofreading profesional',
+        'Desain sampul dan format distribusi',
+        'Publikasi digital di platform Pemhida'
       ],
-      price: 'Biaya terjangkau dengan sistem angsuran'
+      price: 'Paket publish novel terjangkau'
     },
     community: {
-      title: 'Pemberdayaan Masyarakat',
-      description: 'Program pemberdayaan ekonomi dan sosial untuk masyarakat',
+      title: 'Jasa Accounting',
+      description: 'Layanan accounting dan pembukuan untuk usaha kecil dan menengah',
       features: [
-        'Pendampingan usaha mikro',
-        'Modal usaha dan sistem kredit',
-        'Pemasaran digital',
-        'Kelompok usaha bersama',
-        'Pelatihan manajemen',
-        'Akses pasar'
+        'Pembukuan harian dan bulanan',
+        'Laporan keuangan lengkap',
+        'Persiapan pajak dan SPT',
+        'Analisis biaya dan profit',
+        'Konsultasi cash flow',
+        'Pendampingan audit'
       ],
-      price: 'Dukungan penuh dari planning hingga eksekusi'
+      price: 'Layanan akuntansi fleksibel untuk bisnis Anda'
     }
   };
 
@@ -66,19 +67,7 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="bg-green-700 text-white sticky top-0 z-50 shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold">
-            🌙 Pemhida Tegal
-          </Link>
-          <div className="flex gap-6">
-            <Link href="/" className="hover:text-green-200">Beranda</Link>
-            <Link href="/news" className="hover:text-green-200">Berita</Link>
-            <Link href="/services" className="hover:text-green-200 border-b-2 border-white">Jasa</Link>
-            <Link href="/contact" className="hover:text-green-200">Kontak</Link>
-          </div>
-        </div>
-      </nav>
+      <ResponsiveNavbar activePage="services" />
 
       {/* Header */}
       <div className="bg-gradient-to-r from-green-600 to-green-800 text-white py-12 scroll-reveal">
@@ -102,10 +91,11 @@ export default function ServicesPage() {
                   : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
               }`}
             >
-              {service.title.split(' ')[service.title.split(' ').length - 1] === 'Website' ? '💻 Website' 
-                : service.title.includes('Pendidikan') ? '📚 Pendidikan'
-                : service.title.includes('Pelatihan') ? '💼 Pelatihan'
-                : '🤝 Pemberdayaan'}
+              {service.title.includes('Website') ? '💻 Website'
+                : service.title.includes('Desain') ? '🎨 Desain'
+                : service.title.includes('Publish') ? '📖 Publish'
+                : service.title.includes('Accounting') ? '🧾 Accounting'
+                : '🔧 Layanan'}
             </button>
           ))}
         </div>
@@ -190,19 +180,19 @@ export default function ServicesPage() {
               <p className="text-gray-600">Pembuatan website profesional dan aplikasi mobile</p>
             </div>
             <div className="bg-purple-50 p-6 rounded-lg text-center scroll-reveal scroll-reveal-delay-200">
-              <div className="text-4xl mb-4">📚</div>
-              <h3 className="text-xl font-semibold text-purple-800 mb-2">Pendidikan</h3>
-              <p className="text-gray-600">Program pendidikan dan beasiswa untuk generasi muda</p>
+              <div className="text-4xl mb-4">🎨</div>
+              <h3 className="text-xl font-semibold text-purple-800 mb-2">Jasa Desain Grafis</h3>
+              <p className="text-gray-600">Desain grafis kreatif untuk branding dan promosi</p>
             </div>
             <div className="bg-orange-50 p-6 rounded-lg text-center scroll-reveal scroll-reveal-delay-300">
-              <div className="text-4xl mb-4">💼</div>
-              <h3 className="text-xl font-semibold text-orange-800 mb-2">Pelatihan</h3>
-              <p className="text-gray-600">Pelatihan keterampilan dan pengembangan karir</p>
+              <div className="text-4xl mb-4">📖</div>
+              <h3 className="text-xl font-semibold text-orange-800 mb-2">Publish Novel</h3>
+              <p className="text-gray-600">Bimbingan penerbitan novel dari naskah sampai distribusi</p>
             </div>
             <div className="bg-red-50 p-6 rounded-lg text-center scroll-reveal scroll-reveal-delay-400">
-              <div className="text-4xl mb-4">🤝</div>
-              <h3 className="text-xl font-semibold text-red-800 mb-2">Pemberdayaan</h3>
-              <p className="text-gray-600">Program pemberdayaan ekonomi masyarakat</p>
+              <div className="text-4xl mb-4">🧾</div>
+              <h3 className="text-xl font-semibold text-red-800 mb-2">Jasa Accounting</h3>
+              <p className="text-gray-600">Akuntansi dan pembukuan untuk usaha kecil dan menengah</p>
             </div>
           </div>
         </div>
