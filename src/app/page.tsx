@@ -16,6 +16,7 @@ interface News {
 export default function Home() {
   const [news, setNews] = useState<News[]>([]);
   const [loading, setLoading] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     fetchLatestNews();
@@ -74,16 +75,70 @@ export default function Home() {
               unoptimized
               className="rounded-full object-cover"
             />
-            Pemhida Tegal
+            <span className="hidden sm:inline">Pemhida Tegal</span>
           </Link>
-          <div className="flex gap-6">
-            <Link href="/" className="hover:text-green-200">Beranda</Link>
-            <Link href="/news" className="hover:text-green-200">Berita</Link>
-            <Link href="/services" className="hover:text-green-200">Jasa</Link>
-            <Link href="/contact" className="hover:text-green-200">Kontak</Link>
-            <Link href="/login" className="hover:text-green-200">Login Admin</Link>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex gap-6">
+            <Link href="/" className="hover:text-green-200 transition">Beranda</Link>
+            <Link href="/news" className="hover:text-green-200 transition">Berita</Link>
+            <Link href="/services" className="hover:text-green-200 transition">Jasa</Link>
+            <Link href="/contact" className="hover:text-green-200 transition">Kontak</Link>
+            <Link href="/login" className="hover:text-green-200 transition">Login Admin</Link>
           </div>
+
+          {/* Mobile Hamburger Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden flex flex-col gap-1.5 p-2"
+            aria-label="Toggle menu"
+          >
+            <span className={`w-6 h-0.5 bg-white transition-all ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`w-6 h-0.5 bg-white transition-all ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+            <span className={`w-6 h-0.5 bg-white transition-all ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          </button>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-green-800 px-4 py-3 space-y-2">
+            <Link
+              href="/"
+              className="block px-4 py-2 hover:bg-green-700 rounded transition"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Beranda
+            </Link>
+            <Link
+              href="/news"
+              className="block px-4 py-2 hover:bg-green-700 rounded transition"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Berita
+            </Link>
+            <Link
+              href="/services"
+              className="block px-4 py-2 hover:bg-green-700 rounded transition"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Jasa
+            </Link>
+            <Link
+              href="/contact"
+              className="block px-4 py-2 hover:bg-green-700 rounded transition"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Kontak
+            </Link>
+            <Link
+              href="/login"
+              className="block px-4 py-2 hover:bg-green-700 rounded transition"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Login Admin
+            </Link>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
