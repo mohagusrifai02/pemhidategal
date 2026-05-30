@@ -24,3 +24,81 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: opacity, transform;
+  transition: opacity 0.75s ease-out, transform 0.75s ease-out;
+}
+
+.scroll-reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-reveal-delay-100 {
+  transition-delay: 100ms;
+}
+
+.scroll-reveal-delay-200 {
+  transition-delay: 200ms;
+}
+
+.scroll-reveal-delay-300 {
+  transition-delay: 300ms;
+}
+
+.scroll-reveal-delay-400 {
+  transition-delay: 400ms;
+}
+
+.scroll-reveal-delay-500 {
+  transition-delay: 500ms;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  opacity: 0;
+  animation: fadeInUp 0.65s ease-out forwards;
+}
+
+.animate-slideDown {
+  opacity: 0;
+  animation: slideDown 0.5s ease-out forwards;
+}
+
+.animate-fadeIn {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+}

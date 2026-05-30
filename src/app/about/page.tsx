@@ -1,0 +1,230 @@
+'use client';
+
+import Link from 'next/link';
+
+export default function AboutPage() {
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Navigation */}
+      <nav className="bg-green-700 text-white sticky top-0 z-50 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+          <Link href="/" className="text-2xl font-bold">
+            🌙 Pemhida Tegal
+          </Link>
+          <div className="flex gap-6">
+            <Link href="/" className="hover:text-green-200">Beranda</Link>
+            <Link href="/news" className="hover:text-green-200">Berita</Link>
+            <Link href="/services" className="hover:text-green-200">Jasa</Link>
+            <Link href="/contact" className="hover:text-green-200">Kontak</Link>
+          </div>
+        </div>
+      </nav>
+
+      {/* Header */}
+      <div className="bg-gradient-to-r from-green-600 to-green-800 text-white py-12 scroll-reveal">
+        <div className="max-w-7xl mx-auto px-4">
+          <h1 className="text-4xl font-bold mb-2">Tentang Pemhida</h1>
+          <p className="text-green-100">Mengenal lebih dekat organisasi kami</p>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        {/* Sejarah */}
+        <section className="mb-16 scroll-reveal scroll-reveal-delay-100">
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">Sejarah Kami</h2>
+          <div className="bg-gray-50 p-8 rounded-lg">
+            <p className="text-gray-700 mb-4 text-lg">
+              Pemuda Hidayatullah (Pemhida) didirikan dengan visi untuk memberikan dampak positif kepada masyarakat, khususnya di kota Tegal. Sejak awal berdiri, organisasi ini telah berkomitmen untuk melayani masyarakat dengan dedikasi penuh dan sincerity.
+            </p>
+            <p className="text-gray-700 mb-4 text-lg">
+              Perjalanan kami dimulai dari gerakan kecil yang digerakkan oleh para pemuda yang peduli dengan nasib masyarakat. Melalui kerja keras dan konsistensi, Pemhida berkembang menjadi organisasi sosial yang dipercaya oleh ribuan masyarakat di Tegal.
+            </p>
+            <p className="text-gray-700 text-lg">
+              Hari ini, Pemhida terus berinovasi dalam memberikan layanan terbaik untuk pemberdayaan masyarakat dan pengembangan generasi muda yang berkelanjutan.
+            </p>
+          </div>
+        </section>
+
+        {/* Visi Misi */}
+        <section className="mb-16 grid md:grid-cols-2 gap-8 scroll-reveal scroll-reveal-delay-200">
+          <div className="bg-green-50 p-8 rounded-lg">
+            <h3 className="text-2xl font-bold text-green-800 mb-4">Visi Kami</h3>
+            <p className="text-gray-700 text-lg">
+              Menjadi organisasi sosial terdepan yang mampu memberdayakan masyarakat secara berkelanjutan, menciptakan perubahan positif, dan membawa harapan bagi generasi muda di Tegal dan sekitarnya.
+            </p>
+          </div>
+          <div className="bg-blue-50 p-8 rounded-lg">
+            <h3 className="text-2xl font-bold text-blue-800 mb-4">Misi Kami</h3>
+            <ul className="space-y-2 text-gray-700 text-lg">
+              <li>✓ Memberikan akses pendidikan berkualitas kepada semua kalangan</li>
+              <li>✓ Memberdayakan ekonomi masyarakat melalui pelatihan dan modal usaha</li>
+              <li>✓ Meningkatkan kesehatan dan kesejahteraan sosial masyarakat</li>
+              <li>✓ Membina generasi muda yang berkarakter dan kompeten</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Nilai Nilai */}
+        <section className="mb-16 scroll-reveal scroll-reveal-delay-300">
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">Nilai-Nilai Kami</h2>
+          <div className="grid md:grid-cols-4 gap-6">
+            <div className="text-center p-6 border-2 border-green-200 rounded-lg hover:shadow-lg transition scroll-reveal scroll-reveal-delay-100">
+              <div className="text-4xl mb-4">❤️</div>
+              <h4 className="text-xl font-semibold text-green-800 mb-2">Kepedulian</h4>
+              <p className="text-gray-600">Kami peduli dengan nasib setiap orang dalam masyarakat</p>
+            </div>
+            <div className="text-center p-6 border-2 border-green-200 rounded-lg hover:shadow-lg transition scroll-reveal scroll-reveal-delay-200">
+              <div className="text-4xl mb-4">🤝</div>
+              <h4 className="text-xl font-semibold text-green-800 mb-2">Kerjasama</h4>
+              <p className="text-gray-600">Bersama-sama kita lebih kuat untuk mencapai tujuan</p>
+            </div>
+            <div className="text-center p-6 border-2 border-green-200 rounded-lg hover:shadow-lg transition">
+              <div className="text-4xl mb-4">💪</div>
+              <h4 className="text-xl font-semibold text-green-800 mb-2">Komitmen</h4>
+              <p className="text-gray-600">Kami berkomitmen penuh dalam setiap program</p>
+            </div>
+            <div className="text-center p-6 border-2 border-green-200 rounded-lg hover:shadow-lg transition scroll-reveal scroll-reveal-delay-300">
+              <div className="text-4xl mb-4">✨</div>
+              <h4 className="text-xl font-semibold text-green-800 mb-2">Integritas</h4>
+              <p className="text-gray-600">Transparan dan jujur dalam setiap tindakan</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Program Utama */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">Program Utama</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
+              <h4 className="text-xl font-semibold text-blue-800 mb-3">📚 Program Pendidikan</h4>
+              <ul className="space-y-2 text-gray-700 text-sm">
+                <li>• Beasiswa penuh untuk pelajar berprestasi</li>
+                <li>• Bimbingan belajar gratis</li>
+                <li>• Pelatihan keterampilan akademik</li>
+                <li>• Mentoring untuk persiapan ujian</li>
+              </ul>
+            </div>
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
+              <h4 className="text-xl font-semibold text-purple-800 mb-3">💼 Program Ekonomi</h4>
+              <ul className="space-y-2 text-gray-700 text-sm">
+                <li>• Pelatihan keterampilan usaha</li>
+                <li>• Modal usaha mikro</li>
+                <li>• Pendampingan bisnis</li>
+                <li>• Akses pasar untuk produk UMKM</li>
+              </ul>
+            </div>
+            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+              <h4 className="text-xl font-semibold text-green-800 mb-3">💻 Program Digital</h4>
+              <ul className="space-y-2 text-gray-700 text-sm">
+                <li>• Kursus digital marketing</li>
+                <li>• Pembuatan website untuk UMKM</li>
+                <li>• Pelatihan online</li>
+                <li>• Literasi digital</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Statistik */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Dampak Kami</h2>
+          <div className="grid md:grid-cols-4 gap-6">
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-8 rounded-lg text-center">
+              <div className="text-4xl font-bold text-orange-600 mb-2">5000+</div>
+              <p className="text-gray-700">Masyarakat Terlayani</p>
+            </div>
+            <div className="bg-gradient-to-br from-red-50 to-red-100 p-8 rounded-lg text-center">
+              <div className="text-4xl font-bold text-red-600 mb-2">1000+</div>
+              <p className="text-gray-700">Penerima Beasiswa</p>
+            </div>
+            <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-8 rounded-lg text-center">
+              <div className="text-4xl font-bold text-yellow-600 mb-2">500+</div>
+              <p className="text-gray-700">UMKM Diberdayakan</p>
+            </div>
+            <div className="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-lg text-center">
+              <div className="text-4xl font-bold text-green-600 mb-2">50+</div>
+              <p className="text-gray-700">Program Aktif</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Organisasi */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">Struktur Organisasi</h2>
+          <div className="bg-gray-50 p-8 rounded-lg">
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="bg-green-700 text-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">👔</span>
+                </div>
+                <h4 className="font-semibold text-gray-800 mb-2">Direktur</h4>
+                <p className="text-gray-600 text-sm">Memimpin organisasi secara keseluruhan</p>
+              </div>
+              <div className="text-center">
+                <div className="bg-green-700 text-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">👥</span>
+                </div>
+                <h4 className="font-semibold text-gray-800 mb-2">Tim Program</h4>
+                <p className="text-gray-600 text-sm">Mengeksekusi program-program Pemhida</p>
+              </div>
+              <div className="text-center">
+                <div className="bg-green-700 text-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">📊</span>
+                </div>
+                <h4 className="font-semibold text-gray-800 mb-2">Tim Administrasi</h4>
+                <p className="text-gray-600 text-sm">Mengelola operasional organisasi</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="bg-green-50 p-12 rounded-lg text-center">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Bergabunglah Dengan Kami</h2>
+          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+            Kami membuka kesempatan bagi Anda untuk berkontribusi dalam pemberdayaan masyarakat. Bersama kita bisa membuat perbedaan!
+          </p>
+          <div className="flex gap-4 justify-center">
+            <Link href="/services" className="px-8 py-3 bg-green-700 text-white rounded-lg hover:bg-green-800 font-semibold">
+              Lihat Layanan Kami
+            </Link>
+            <Link href="/contact" className="px-8 py-3 bg-white text-green-700 border-2 border-green-700 rounded-lg hover:bg-green-50 font-semibold">
+              Hubungi Kami
+            </Link>
+          </div>
+        </section>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-green-900 text-white py-12 mt-16">
+        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8">
+          <div>
+            <h3 className="text-2xl font-bold mb-4">Pemhida Tegal</h3>
+            <p className="text-green-100">
+              Organisasi sosial yang peduli dengan pemberdayaan masyarakat.
+            </p>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-4">Menu Utama</h4>
+            <ul className="space-y-2 text-green-100">
+              <li><Link href="/" className="hover:text-white">Beranda</Link></li>
+              <li><Link href="/news" className="hover:text-white">Berita & Artikel</Link></li>
+              <li><Link href="/services" className="hover:text-white">Layanan</Link></li>
+              <li><Link href="/contact" className="hover:text-white">Kontak</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-4">Kontak</h4>
+            <p className="text-green-100 mb-2">📍 Tegal, Jawa Tengah</p>
+            <p className="text-green-100 mb-2">📞 +62 (0)283 XXX XXXX</p>
+            <p className="text-green-100">📧 info@pemhida.tegal</p>
+          </div>
+        </div>
+        <div className="border-t border-green-800 mt-8 pt-8 text-center text-green-100">
+          <p>&copy; 2026 Pemuda Hidayatullah Tegal. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
