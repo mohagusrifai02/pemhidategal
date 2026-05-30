@@ -32,7 +32,7 @@ const adminSchema = new mongoose.Schema<IAdmin>(
     timestamps: true,
     toJSON: {
       transform(doc, ret) {
-        delete ret.password;
+        delete (ret as Partial<IAdmin>).password;
         return ret;
       },
     },
