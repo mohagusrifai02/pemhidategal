@@ -23,6 +23,8 @@ interface NewsForm {
 
 export default function Dashboard() {
   const [tab, setTab] = useState<'news' | 'users'>('news');
+  const [contacts, setContacts] = useState<Array<{_id: string; name: string; email: string; phone?: string; message: string; service?: string; createdAt: string}>>([]);
+  const [contactCount, setContactCount] = useState<number>(0);
   const [news, setNews] = useState<News[]>([]);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState<NewsForm>({
@@ -59,8 +61,17 @@ export default function Dashboard() {
   }, [router]);
 
   useEffect(() => {
+    if (!authLoading) {
+      fetchContactCount();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authLoading]);
+
+  useEffect(() => {
     if (tab === 'news') {
       fetchNews();
+    } else if (tab === 'contacts') {
+      fetchContacts();
     }
   }, [tab]);
 
@@ -76,6 +87,54 @@ export default function Dashboard() {
       setError('Gagal mengambil data berita');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchContacts = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/contact');
+      const data = await response.json();
+      if (data.success) {
+        setContacts(data.data);
+        setContactCount(Array.isArray(data.data) ? data.data.length : 0);
+      }
+    } catch (err) {
+      setError('Gagal mengambil data kontak');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchContactCount = async () => {
+    try {
+      const response = await fetch('/api/contact');
+      const data = await response.json();
+      if (data.success && Array.isArray(data.data)) {
+        setContactCount(data.data.length);
+      } else {
+        setContactCount(0);
+      }
+    } catch (err) {
+      setContactCount(0);
+    }
+  };
+
+  const handleDeleteContact = async (id: string) => {
+    if (!confirm('Apakah Anda yakin ingin menghapus pesan ini?')) return;
+    try {
+      setError('');
+      setSuccess('');
+      const response = await fetch(`/api/contact/${id}`, { method: 'DELETE' });
+      const data = await response.json();
+      if (data.success) {
+        setSuccess('Pesan berhasil dihapus');
+        fetchContacts();
+      } else {
+        setError(data.message || 'Gagal menghapus pesan');
+      }
+    } catch (err) {
+      setError('Terjadi kesalahan saat menghapus data');
     }
   };
 
@@ -235,6 +294,21 @@ export default function Dashboard() {
             }`}
           >
             👥 Manajemen User
+          </button>
+          <button
+            onClick={() => setTab('contacts' as any)}
+            className={`px-6 py-2 rounded-lg font-semibold transition ${
+              tab === 'contacts'
+                ? 'bg-green-700 text-white'
+                : 'bg-white text-gray-800 hover:bg-gray-100'
+            }`}
+          >
+            <span className="inline-flex items-center gap-2">
+              ✉️ Kontak Masuk
+              <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-semibold rounded-full bg-red-600 text-white">
+                {contactCount}
+              </span>
+            </span>
           </button>
         </div>
 
@@ -434,6 +508,54 @@ export default function Dashboard() {
                 </div>
               )}
             </div>
+          </div>
+        )}
+
+        {/* Contacts Tab */}
+        {tab === 'contacts' && (
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-semibold mb-4">Daftar Kontak Masuk</h2>
+            {loading ? (
+              <div className="p-6 text-center">Loading...</div>
+            ) : contacts.length === 0 ? (
+              <div className="p-6 text-center text-gray-500">Belum ada pesan masuk</div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">Nama</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">Email</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">Telepon</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">Layanan</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">Pesan</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">Tanggal</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y">
+                    {contacts.map((c) => (
+                      <tr key={c._id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 text-sm text-gray-900 max-w-xs truncate">{c.name}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">{c.email}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">{c.phone || '-'}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">{c.service || '-'}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900 max-w-md truncate">{c.message}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">{new Date(c.createdAt).toLocaleString('id-ID')}</td>
+                        <td className="px-6 py-4 text-sm space-x-2">
+                          <button
+                            onClick={() => handleDeleteContact(c._id)}
+                            className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+                          >
+                            Hapus
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
 

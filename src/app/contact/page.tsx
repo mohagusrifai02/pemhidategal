@@ -45,9 +45,9 @@ export default function ContactPage() {
             <div className="text-4xl mb-4">📍</div>
             <h3 className="text-xl font-semibold text-green-800 mb-2">Lokasi</h3>
             <p className="text-gray-600">
-              Jalan Pendidikan No. 1<br />
-              Tegal, Jawa Tengah 52114<br />
-              Indonesia
+              JL Jali timur<br />
+              Kelurahan Dampyak, Kecamatan Kramat<br />
+              Kabupaten Tegal
             </p>
           </div>
           <div className="bg-green-50 p-6 rounded-lg text-center scroll-reveal scroll-reveal-delay-200">
@@ -162,10 +162,16 @@ export default function ContactPage() {
         <div className="mt-12 scroll-reveal scroll-reveal-delay-300">
           <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Temui Kami</h2>
           <div className="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
-            <div className="text-center text-gray-600">
-              <p className="text-lg mb-2">📍 Lokasi: Tegal, Jawa Tengah</p>
-              <p className="text-sm">Map akan ditampilkan di sini</p>
-            </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63380.31653391097!2d109.12258448636109!3d-6.858234010398691!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fb7030f587b4f%3A0x1971a431f0a6dc65!2sAl%20Islah%20Hidayatullah!5e0!3m2!1sen!2sid!4v1780307666161!5m2!1sen!2sid"
+              width="600"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full h-96 rounded-lg"
+            />
           </div>
         </div>
 
@@ -210,7 +216,7 @@ export default function ContactPage() {
           <div>
             <h4 className="font-semibold mb-4">Kontak</h4>
             <p className="text-green-100 mb-2">📍 Tegal, Jawa Tengah</p>
-            <p className="text-green-100 mb-2">📞 +62 (0)283 XXX XXXX</p>
+            <p className="text-green-100 mb-2">📞 +6289516589293</p>
             <p className="text-green-100">📧 info@pemhida.tegal</p>
           </div>
         </div>

@@ -144,7 +144,7 @@ export default function NewsPage() {
           <div>
             <h4 className="font-semibold mb-4">Kontak</h4>
             <p className="text-green-100 mb-2">📍 Tegal, Jawa Tengah</p>
-            <p className="text-green-100 mb-2">📞 +62 (0)283 XXX XXXX</p>
+            <p className="text-green-100 mb-2">📞 +6289516589293</p>
             <p className="text-green-100">📧 info@pemhida.tegal</p>
           </div>
         </div>

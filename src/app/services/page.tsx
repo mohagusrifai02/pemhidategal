@@ -6,6 +6,49 @@ import ResponsiveNavbar from '@/components/ResponsiveNavbar';
 
 export default function ServicesPage() {
   const [activeTab, setActiveTab] = useState('website');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setSuccess(null);
+    setError(null);
+
+    try {
+      const payload = {
+        name,
+        email,
+        phone,
+        message,
+        service: currentService.title,
+      };
+
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.message || 'Gagal mengirim pesan');
+
+      setSuccess('Pesan berhasil dikirim. Terima kasih!');
+      setName('');
+      setEmail('');
+      setPhone('');
+      setMessage('');
+    } catch (err: any) {
+      setError(err?.message || 'Terjadi kesalahan');
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const services = {
     website: {
@@ -127,11 +170,16 @@ export default function ServicesPage() {
 
           <div className="bg-green-50 rounded-lg p-8">
             <h3 className="text-2xl font-bold text-green-800 mb-6">Hubungi Kami</h3>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              {success && <div className="p-3 bg-green-100 text-green-800 rounded">{success}</div>}
+              {error && <div className="p-3 bg-red-100 text-red-800 rounded">{error}</div>}
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">Nama</label>
                 <input
                   type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   placeholder="Nama Anda"
                 />
@@ -140,6 +188,9 @@ export default function ServicesPage() {
                 <label className="block text-gray-700 font-semibold mb-2">Email</label>
                 <input
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   placeholder="Email Anda"
                 />
@@ -148,6 +199,8 @@ export default function ServicesPage() {
                 <label className="block text-gray-700 font-semibold mb-2">Nomor Telepon</label>
                 <input
                   type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   placeholder="No. Telepon"
                 />
@@ -156,15 +209,19 @@ export default function ServicesPage() {
                 <label className="block text-gray-700 font-semibold mb-2">Pesan</label>
                 <textarea
                   rows={4}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  required
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
                   placeholder="Jelaskan kebutuhan Anda"
                 />
               </div>
               <button
                 type="submit"
-                className="w-full px-6 py-3 bg-green-700 text-white rounded-lg font-semibold hover:bg-green-800 transition"
+                disabled={loading}
+                className="w-full px-6 py-3 bg-green-700 text-white rounded-lg font-semibold hover:bg-green-800 transition disabled:opacity-60"
               >
-                Kirim Pertanyaan
+                {loading ? 'Mengirim...' : 'Kirim Pertanyaan'}
               </button>
             </form>
           </div>
@@ -219,7 +276,7 @@ export default function ServicesPage() {
           <div>
             <h4 className="font-semibold mb-4">Kontak</h4>
             <p className="text-green-100 mb-2">📍 Tegal, Jawa Tengah</p>
-            <p className="text-green-100 mb-2">📞 +62 (0)283 XXX XXXX</p>
+            <p className="text-green-100 mb-2">📞 +6289516589293</p>
             <p className="text-green-100">📧 info@pemhida.tegal</p>
           </div>
         </div>
