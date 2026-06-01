@@ -3,7 +3,7 @@ import { Contact } from '@/models/Contact';
 import { getAuthPayload } from '@/lib/auth';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, context: any) {
   try {
     const payload = getAuthPayload(request);
     if (!payload?.id) {
@@ -11,6 +11,17 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     }
 
     await connectDB();
+
+    // context.params can be a Promise in some Next.js runtime types on Vercel
+    let params: any = context?.params;
+    if (params && typeof params.then === 'function') {
+      try {
+        params = await params;
+      } catch {
+        params = undefined;
+      }
+    }
+
     const idFromParams = params?.id;
     const idFromPath = request.nextUrl?.pathname?.split('/')?.pop();
     const id = idFromParams || idFromPath;
