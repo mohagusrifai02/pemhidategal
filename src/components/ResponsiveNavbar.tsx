@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 interface NavbarProps {
-  activePage?: 'home' | 'news' | 'services' | 'contact' | 'login';
+  activePage?: 'home' | 'news' | 'services' | 'contact';
 }
 
 const navItems = [
@@ -12,7 +12,6 @@ const navItems = [
   { href: '/news', label: 'Berita', key: 'news' },
   { href: '/services', label: 'Jasa', key: 'services' },
   { href: '/contact', label: 'Kontak', key: 'contact' },
-  { href: '/login', label: 'Login Admin', key: 'login' },
 ];
 
 export default function ResponsiveNavbar({ activePage = 'home' }: NavbarProps) {

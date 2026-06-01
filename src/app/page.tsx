@@ -84,7 +84,6 @@ export default function Home() {
             <Link href="/news" className="hover:text-green-200 transition">Berita</Link>
             <Link href="/services" className="hover:text-green-200 transition">Jasa</Link>
             <Link href="/contact" className="hover:text-green-200 transition">Kontak</Link>
-            <Link href="/login" className="hover:text-green-200 transition">Login Admin</Link>
           </div>
 
           {/* Mobile Hamburger Menu Button */}
@@ -129,13 +128,6 @@ export default function Home() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Kontak
-            </Link>
-            <Link
-              href="/login"
-              className="block px-4 py-2 hover:bg-green-700 rounded transition"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Login Admin
             </Link>
           </div>
         )}

@@ -13,15 +13,18 @@ interface News {
   category: string;
   publishedAt: string;
   views?: number;
+  likesCount?: number;
 }
 
 export default function NewsPage() {
   const [news, setNews] = useState<News[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('semua');
+  const [likesMap, setLikesMap] = useState<Record<string, number>>({});
 
   useEffect(() => {
     fetchNews();
+    fetchLikesSummary();
   }, [selectedCategory]);
 
   const fetchNews = async () => {
@@ -39,6 +42,18 @@ export default function NewsPage() {
       console.error('Error fetching news:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchLikesSummary = async () => {
+    try {
+      const response = await fetch('/api/likes/summary');
+      const data = await response.json();
+      if (data.success) {
+        setLikesMap(data.data);
+      }
+    } catch (error) {
+      console.error('Error fetching likes summary:', error);
     }
   };
 
@@ -112,9 +127,10 @@ export default function NewsPage() {
                       <span className="text-gray-500 text-sm">
                         {new Date(item.publishedAt).toLocaleDateString('id-ID')}
                       </span>
-                      <span className="text-gray-500 text-sm">
-                        👁️ {item.views ?? 0} views
-                      </span>
+                      <div className="flex gap-3 text-gray-500 text-sm">
+                        <span>👁️ {item.views ?? 0}</span>
+                        <span>❤️ {likesMap[item._id] ?? 0}</span>
+                      </div>
                       <div className="text-green-700 font-semibold">
                         Baca Selengkapnya →
                       </div>

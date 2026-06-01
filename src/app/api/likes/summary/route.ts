@@ -1,5 +1,4 @@
 import { connectDB } from '@/lib/mongodb';
-import { News } from '@/models/News';
 import { Like } from '@/models/Like';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -7,27 +6,24 @@ export async function GET(request: NextRequest) {
   try {
     await connectDB();
 
-    const totalNews = await News.countDocuments();
-    const viewsResult = await News.aggregate([
+    const likesData = await Like.aggregate([
       {
         $group: {
-          _id: null,
-          totalViews: { $sum: { $ifNull: ['$views', 0] } },
+          _id: '$newsId',
+          likesCount: { $sum: 1 },
         },
       },
     ]);
 
-    const totalViews = viewsResult?.[0]?.totalViews ?? 0;
-    const totalLikes = await Like.countDocuments();
+    const likesMap = new Map();
+    likesData.forEach((item) => {
+      likesMap.set(item._id.toString(), item.likesCount);
+    });
 
     return NextResponse.json(
       {
         success: true,
-        data: {
-          totalNews,
-          totalViews,
-          totalLikes,
-        },
+        data: Object.fromEntries(likesMap),
       },
       { status: 200 }
     );

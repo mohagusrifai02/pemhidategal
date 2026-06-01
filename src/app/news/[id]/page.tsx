@@ -18,17 +18,34 @@ interface News {
   views: number;
 }
 
+interface Comment {
+  _id: string;
+  name: string;
+  text: string;
+  createdAt: string;
+}
+
 export default function NewsDetail() {
   const params = useParams();
   const id = params.id as string;
   const [news, setNews] = useState<News | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [likesCount, setLikesCount] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeLoading, setLikeLoading] = useState(false);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [commentForm, setCommentForm] = useState({ name: '', text: '' });
+  const [commentLoading, setCommentLoading] = useState(false);
+  const [commentError, setCommentError] = useState('');
+  const [commentSuccess, setCommentSuccess] = useState('');
   const hasIncrementedRef = useRef(false);
 
   useEffect(() => {
     if (id) {
       fetchNews();
+      fetchLikes();
+      fetchComments();
     }
   }, [id]);
 
@@ -66,6 +83,82 @@ export default function NewsDetail() {
       }
     } catch (err) {
       console.error('Gagal mencatat views:', err);
+    }
+  };
+
+  const fetchLikes = async () => {
+    try {
+      const response = await fetch(`/api/news/${id}/like`);
+      const data = await response.json();
+      if (data.success) {
+        setLikesCount(data.data.likesCount);
+        setIsLiked(data.data.isLiked);
+      }
+    } catch (err) {
+      console.error('Gagal mengambil likes:', err);
+    }
+  };
+
+  const handleToggleLike = async () => {
+    try {
+      setLikeLoading(true);
+      const response = await fetch(`/api/news/${id}/like`, {
+        method: 'POST',
+      });
+      const data = await response.json();
+      if (data.success) {
+        setLikesCount(data.data.likesCount);
+        setIsLiked(data.data.isLiked);
+      }
+    } catch (err) {
+      console.error('Gagal toggle like:', err);
+    } finally {
+      setLikeLoading(false);
+    }
+  };
+
+  const fetchComments = async () => {
+    try {
+      const response = await fetch(`/api/news/${id}/comments`);
+      const data = await response.json();
+      if (data.success) {
+        setComments(data.data);
+      }
+    } catch (err) {
+      console.error('Gagal mengambil komentar:', err);
+    }
+  };
+
+  const handleCommentSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setCommentError('');
+    setCommentSuccess('');
+
+    if (!commentForm.name.trim() || !commentForm.text.trim()) {
+      setCommentError('Nama dan komentar harus diisi');
+      return;
+    }
+
+    try {
+      setCommentLoading(true);
+      const response = await fetch(`/api/news/${id}/comments`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(commentForm),
+      });
+      const data = await response.json();
+      if (data.success) {
+        setCommentSuccess('Komentar berhasil ditambahkan');
+        setCommentForm({ name: '', text: '' });
+        await fetchComments();
+        setTimeout(() => setCommentSuccess(''), 3000);
+      } else {
+        setCommentError(data.message || 'Gagal menambahkan komentar');
+      }
+    } catch (err) {
+      setCommentError('Terjadi kesalahan saat menambahkan komentar');
+    } finally {
+      setCommentLoading(false);
     }
   };
 
@@ -133,8 +226,22 @@ export default function NewsDetail() {
             </div>
           </div>
 
-          {/* Share Section */}
+          {/* Like & Share Section */}
           <div className="border-t border-gray-200 pt-8">
+            <div className="flex gap-4 mb-6">
+              <button
+                onClick={handleToggleLike}
+                disabled={likeLoading}
+                className={`px-4 py-2 rounded font-semibold transition ${
+                  isLiked
+                    ? 'bg-red-600 text-white hover:bg-red-700'
+                    : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                } disabled:opacity-50`}
+              >
+                ❤️ {likesCount} {likesCount === 1 ? 'Suka' : 'Suka'}
+              </button>
+            </div>
+
             <h3 className="font-semibold text-gray-800 mb-4">Bagikan Artikel Ini</h3>
             <div className="flex gap-4">
               <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(news.title)}`} 
@@ -145,6 +252,80 @@ export default function NewsDetail() {
                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                 Facebook
               </a>
+            </div>
+          </div>
+
+          {/* Comments Section */}
+          <div className="border-t border-gray-200 pt-8 mt-8">
+            <h3 className="text-2xl font-semibold text-gray-800 mb-6">Komentar ({comments.length})</h3>
+
+            {/* Comment Form */}
+            <div className="mb-8 p-6 bg-gray-50 rounded-lg">
+              <h4 className="font-semibold text-gray-800 mb-4">Tambahkan Komentar</h4>
+              {commentError && (
+                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                  {commentError}
+                </div>
+              )}
+              {commentSuccess && (
+                <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+                  {commentSuccess}
+                </div>
+              )}
+              <form onSubmit={handleCommentSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Nama</label>
+                  <input
+                    type="text"
+                    value={commentForm.name}
+                    onChange={(e) => setCommentForm({ ...commentForm, name: e.target.value })}
+                    placeholder="Masukkan nama Anda"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Komentar</label>
+                  <textarea
+                    value={commentForm.text}
+                    onChange={(e) => setCommentForm({ ...commentForm, text: e.target.value })}
+                    placeholder="Tulis komentar Anda di sini..."
+                    rows={4}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={commentLoading}
+                  className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
+                >
+                  {commentLoading ? 'Mengirim...' : 'Kirim Komentar'}
+                </button>
+              </form>
+            </div>
+
+            {/* Comments List */}
+            <div className="space-y-4">
+              {comments.length === 0 ? (
+                <p className="text-gray-500 text-center py-8">Belum ada komentar. Jadilah yang pertama berkomentar!</p>
+              ) : (
+                comments.map((comment) => (
+                  <div key={comment._id} className="p-4 border border-gray-200 rounded-lg">
+                    <div className="flex justify-between items-start mb-2">
+                      <h5 className="font-semibold text-gray-800">{comment.name}</h5>
+                      <span className="text-sm text-gray-500">
+                        {new Date(comment.createdAt).toLocaleDateString('id-ID', {
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </span>
+                    </div>
+                    <p className="text-gray-700">{comment.text}</p>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </article>

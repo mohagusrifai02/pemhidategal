@@ -1,32 +1,22 @@
 import { connectDB } from '@/lib/mongodb';
-import { News } from '@/models/News';
-import { Like } from '@/models/Like';
+import { Comment } from '@/models/Comment';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   try {
     await connectDB();
 
-    const totalNews = await News.countDocuments();
-    const viewsResult = await News.aggregate([
-      {
-        $group: {
-          _id: null,
-          totalViews: { $sum: { $ifNull: ['$views', 0] } },
-        },
-      },
-    ]);
-
-    const totalViews = viewsResult?.[0]?.totalViews ?? 0;
-    const totalLikes = await Like.countDocuments();
+    const totalComments = await Comment.countDocuments();
+    const comments = await Comment.find()
+      .sort({ createdAt: -1 })
+      .lean();
 
     return NextResponse.json(
       {
         success: true,
         data: {
-          totalNews,
-          totalViews,
-          totalLikes,
+          totalComments,
+          comments,
         },
       },
       { status: 200 }

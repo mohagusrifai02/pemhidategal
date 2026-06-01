@@ -22,12 +22,15 @@ interface NewsForm {
 }
 
 export default function Dashboard() {
-  const [tab, setTab] = useState<'news' | 'users' | 'contacts'>('news');
+  const [tab, setTab] = useState<'news' | 'users' | 'contacts' | 'comments'>('news');
   const [contacts, setContacts] = useState<Array<{_id: string; name: string; email: string; phone?: string; message: string; service?: string; createdAt: string}>>([]);
   const [contactCount, setContactCount] = useState<number>(0);
   const [news, setNews] = useState<News[]>([]);
   const [totalNewsCount, setTotalNewsCount] = useState<number>(0);
   const [totalViews, setTotalViews] = useState<number>(0);
+  const [totalLikes, setTotalLikes] = useState<number>(0);
+  const [totalComments, setTotalComments] = useState<number>(0);
+  const [allComments, setAllComments] = useState<Array<{_id: string; name: string; text: string; createdAt: string}>>([]);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState<NewsForm>({
     title: '',
@@ -66,6 +69,7 @@ export default function Dashboard() {
     if (!authLoading) {
       fetchContactCount();
       fetchNewsSummary();
+      fetchCommentsSummary();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authLoading]);
@@ -75,6 +79,8 @@ export default function Dashboard() {
       fetchNews();
     } else if (tab === 'contacts') {
       fetchContacts();
+    } else if (tab === 'comments') {
+      fetchCommentsSummary();
     }
   }, [tab]);
 
@@ -130,10 +136,26 @@ export default function Dashboard() {
       if (data.success) {
         setTotalNewsCount(data.data.totalNews);
         setTotalViews(data.data.totalViews);
+        setTotalLikes(data.data.totalLikes);
       }
     } catch (err) {
       setTotalNewsCount(0);
       setTotalViews(0);
+      setTotalLikes(0);
+    }
+  };
+
+  const fetchCommentsSummary = async () => {
+    try {
+      const response = await fetch('/api/comments/summary');
+      const data = await response.json();
+      if (data.success) {
+        setTotalComments(data.data.totalComments);
+        setAllComments(data.data.comments);
+      }
+    } catch (err) {
+      setTotalComments(0);
+      setAllComments([]);
     }
   };
 
@@ -330,9 +352,24 @@ export default function Dashboard() {
               </span>
             </span>
           </button>
+          <button
+            onClick={() => setTab('comments')}
+            className={`px-6 py-2 rounded-lg font-semibold transition ${
+              tab === 'comments'
+                ? 'bg-green-700 text-white'
+                : 'bg-white text-gray-800 hover:bg-gray-100'
+            }`}
+          >
+            <span className="inline-flex items-center gap-2">
+              💬 Komentar
+              <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-semibold rounded-full bg-blue-600 text-white">
+                {totalComments}
+              </span>
+            </span>
+          </button>
         </div>
 
-        <div className="grid gap-4 mb-8 sm:grid-cols-3">
+        <div className="grid gap-4 mb-8 sm:grid-cols-2 lg:grid-cols-5">
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
             <p className="text-sm text-gray-500">Total Berita & Artikel</p>
             <p className="mt-4 text-3xl font-semibold text-gray-900">{totalNewsCount}</p>
@@ -344,6 +381,14 @@ export default function Dashboard() {
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
             <p className="text-sm text-gray-500">Total Views Berita</p>
             <p className="mt-4 text-3xl font-semibold text-gray-900">{totalViews}</p>
+          </div>
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <p className="text-sm text-gray-500">Total Likes Berita</p>
+            <p className="mt-4 text-3xl font-semibold text-gray-900">{totalLikes}</p>
+          </div>
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <p className="text-sm text-gray-500">Total Komentar</p>
+            <p className="mt-4 text-3xl font-semibold text-gray-900">{totalComments}</p>
           </div>
         </div>
 
@@ -543,6 +588,47 @@ export default function Dashboard() {
                 </div>
               )}
             </div>
+          </div>
+        )}
+
+        {/* Comments Tab */}
+        {tab === 'comments' && (
+          <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <h2 className="text-2xl font-semibold p-6 border-b">Daftar Komentar</h2>
+            {loading ? (
+              <div className="p-6 text-center">Loading...</div>
+            ) : allComments.length === 0 ? (
+              <div className="p-6 text-center text-gray-500">Belum ada komentar</div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">Nama</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">Komentar</th>
+                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">Tanggal</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y">
+                    {allComments.map((comment) => (
+                      <tr key={comment._id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 text-sm font-medium text-gray-900 max-w-xs">{comment.name}</td>
+                        <td className="px-6 py-4 text-sm text-gray-700 max-w-md truncate">{comment.text}</td>
+                        <td className="px-6 py-4 text-sm text-gray-600">
+                          {new Date(comment.createdAt).toLocaleDateString('id-ID', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
 
