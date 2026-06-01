@@ -22,7 +22,7 @@ interface NewsForm {
 }
 
 export default function Dashboard() {
-  const [tab, setTab] = useState<'news' | 'users'>('news');
+  const [tab, setTab] = useState<'news' | 'users' | 'contacts'>('news');
   const [contacts, setContacts] = useState<Array<{_id: string; name: string; email: string; phone?: string; message: string; service?: string; createdAt: string}>>([]);
   const [contactCount, setContactCount] = useState<number>(0);
   const [news, setNews] = useState<News[]>([]);
@@ -296,7 +296,7 @@ export default function Dashboard() {
             👥 Manajemen User
           </button>
           <button
-            onClick={() => setTab('contacts' as any)}
+            onClick={() => setTab('contacts')}
             className={`px-6 py-2 rounded-lg font-semibold transition ${
               tab === 'contacts'
                 ? 'bg-green-700 text-white'
