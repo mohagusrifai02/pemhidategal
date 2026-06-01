@@ -12,6 +12,7 @@ export interface INews {
   publishedAt: Date;
   createdAt?: Date;
   updatedAt?: Date;
+  views?: number;
 }
 
 const newsSchema = new mongoose.Schema<INews>(
@@ -51,6 +52,11 @@ const newsSchema = new mongoose.Schema<INews>(
     publishedAt: {
       type: Date,
       default: Date.now,
+    },
+    views: {
+      type: Number,
+      default: 0,
+      min: 0,
     },
   },
   {

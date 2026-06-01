@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
+import { connectDB } from '@/lib/mongodb';
+import { News } from '@/models/News';
+import { Types } from 'mongoose';
 
-interface News {
+interface NewsMetadata {
   _id: string;
   title: string;
   excerpt: string;
@@ -16,12 +19,15 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const { id } = await params;
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/news/${id}`, {
-      next: { revalidate: 3600 } // Cache for 1 hour
-    });
-    
-    const data = await response.json();
-    const news: News = data.data;
+
+    if (!Types.ObjectId.isValid(id)) {
+      return {
+        title: 'Berita Tidak Ditemukan - Pemhida Tegal',
+      };
+    }
+
+    await connectDB();
+    const news = await News.findById(id).lean<NewsMetadata>();
 
     if (!news) {
       return {

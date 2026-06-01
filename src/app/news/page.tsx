@@ -12,6 +12,7 @@ interface News {
   image: string;
   category: string;
   publishedAt: string;
+  views?: number;
 }
 
 export default function NewsPage() {
@@ -107,9 +108,12 @@ export default function NewsPage() {
                     <p className="text-gray-600 mb-4">
                       {item.excerpt}
                     </p>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-center gap-4 flex-wrap">
                       <span className="text-gray-500 text-sm">
                         {new Date(item.publishedAt).toLocaleDateString('id-ID')}
+                      </span>
+                      <span className="text-gray-500 text-sm">
+                        👁️ {item.views ?? 0} views
                       </span>
                       <div className="text-green-700 font-semibold">
                         Baca Selengkapnya →

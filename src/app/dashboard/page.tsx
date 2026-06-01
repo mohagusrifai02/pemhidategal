@@ -26,6 +26,8 @@ export default function Dashboard() {
   const [contacts, setContacts] = useState<Array<{_id: string; name: string; email: string; phone?: string; message: string; service?: string; createdAt: string}>>([]);
   const [contactCount, setContactCount] = useState<number>(0);
   const [news, setNews] = useState<News[]>([]);
+  const [totalNewsCount, setTotalNewsCount] = useState<number>(0);
+  const [totalViews, setTotalViews] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState<NewsForm>({
     title: '',
@@ -63,6 +65,7 @@ export default function Dashboard() {
   useEffect(() => {
     if (!authLoading) {
       fetchContactCount();
+      fetchNewsSummary();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authLoading]);
@@ -120,6 +123,20 @@ export default function Dashboard() {
     }
   };
 
+  const fetchNewsSummary = async () => {
+    try {
+      const response = await fetch('/api/news/summary');
+      const data = await response.json();
+      if (data.success) {
+        setTotalNewsCount(data.data.totalNews);
+        setTotalViews(data.data.totalViews);
+      }
+    } catch (err) {
+      setTotalNewsCount(0);
+      setTotalViews(0);
+    }
+  };
+
   const handleDeleteContact = async (id: string) => {
     if (!confirm('Apakah Anda yakin ingin menghapus pesan ini?')) return;
     try {
@@ -162,6 +179,7 @@ export default function Dashboard() {
         if (data.success) {
           setSuccess('Berita berhasil diperbarui');
           fetchNews();
+          fetchNewsSummary();
           resetForm();
         } else {
           setError(data.message || 'Gagal memperbarui berita');
@@ -176,6 +194,7 @@ export default function Dashboard() {
         if (data.success) {
           setSuccess('Berita berhasil ditambahkan');
           fetchNews();
+          fetchNewsSummary();
           resetForm();
         } else {
           setError(data.message || 'Gagal menambahkan berita');
@@ -220,6 +239,7 @@ export default function Dashboard() {
       if (data.success) {
         setSuccess('Berita berhasil dihapus');
         fetchNews();
+        fetchNewsSummary();
       } else {
         setError(data.message || 'Gagal menghapus berita');
       }
@@ -310,6 +330,21 @@ export default function Dashboard() {
               </span>
             </span>
           </button>
+        </div>
+
+        <div className="grid gap-4 mb-8 sm:grid-cols-3">
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <p className="text-sm text-gray-500">Total Berita & Artikel</p>
+            <p className="mt-4 text-3xl font-semibold text-gray-900">{totalNewsCount}</p>
+          </div>
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <p className="text-sm text-gray-500">Total Kontak Masuk</p>
+            <p className="mt-4 text-3xl font-semibold text-gray-900">{contactCount}</p>
+          </div>
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+            <p className="text-sm text-gray-500">Total Views Berita</p>
+            <p className="mt-4 text-3xl font-semibold text-gray-900">{totalViews}</p>
+          </div>
         </div>
 
         {/* Alerts */}

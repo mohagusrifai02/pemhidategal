@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import ResponsiveNavbar from '@/components/ResponsiveNavbar';
 
@@ -15,6 +15,7 @@ interface News {
   category: string;
   author: string;
   publishedAt: string;
+  views: number;
 }
 
 export default function NewsDetail() {
@@ -23,6 +24,7 @@ export default function NewsDetail() {
   const [news, setNews] = useState<News | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const hasIncrementedRef = useRef(false);
 
   useEffect(() => {
     if (id) {
@@ -37,6 +39,10 @@ export default function NewsDetail() {
       const data = await response.json();
       if (data.success) {
         setNews(data.data);
+        if (!hasIncrementedRef.current) {
+          hasIncrementedRef.current = true;
+          await incrementViews();
+        }
       } else {
         setError('Berita tidak ditemukan');
       }
@@ -44,6 +50,22 @@ export default function NewsDetail() {
       setError('Error loading news');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const incrementViews = async () => {
+    try {
+      const response = await fetch(`/api/news/${id}/view`, {
+        method: 'POST',
+      });
+      const data = await response.json();
+      if (data.success) {
+        setNews((current) =>
+          current ? { ...current, views: data.data.views } : current
+        );
+      }
+    } catch (err) {
+      console.error('Gagal mencatat views:', err);
     }
   };
 
@@ -81,7 +103,7 @@ export default function NewsDetail() {
               {news.category}
             </span>
             <h1 className="text-4xl font-bold text-gray-800 mb-4">{news.title}</h1>
-            <div className="flex gap-6 text-gray-600 text-sm">
+            <div className="flex gap-6 flex-wrap text-gray-600 text-sm">
               <span>📝 {news.author}</span>
               <span>📅 {new Date(news.publishedAt).toLocaleDateString('id-ID', {
                 weekday: 'long',
@@ -89,6 +111,7 @@ export default function NewsDetail() {
                 month: 'long',
                 day: 'numeric'
               })}</span>
+              <span>👁️ {news.views ?? 0} kali dilihat</span>
             </div>
           </div>
 
