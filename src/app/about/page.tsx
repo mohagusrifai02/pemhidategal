@@ -156,24 +156,27 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="bg-green-700 text-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">👔</span>
+                  <span className="text-2xl">🎩</span>
                 </div>
-                <h4 className="font-semibold text-gray-800 mb-2">Direktur</h4>
+                <h4 className="font-semibold text-gray-800 mb-2">Ketua</h4>
+                <p className="text-gray-700 mb-2">Moh. Agus Rifai, S.Ak.</p>
                 <p className="text-gray-600 text-sm">Memimpin organisasi secara keseluruhan</p>
               </div>
               <div className="text-center">
                 <div className="bg-green-700 text-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">👥</span>
+                  <span className="text-2xl">📝</span>
                 </div>
-                <h4 className="font-semibold text-gray-800 mb-2">Tim Program</h4>
+                <h4 className="font-semibold text-gray-800 mb-2">Sekretaris</h4>
+                <p className="text-gray-700 mb-2">Abdul Aziz Muslim, S.Pd.</p>
                 <p className="text-gray-600 text-sm">Mengeksekusi program-program Pemhida</p>
               </div>
               <div className="text-center">
                 <div className="bg-green-700 text-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">📊</span>
+                  <span className="text-2xl">�</span>
                 </div>
-                <h4 className="font-semibold text-gray-800 mb-2">Tim Administrasi</h4>
-                <p className="text-gray-600 text-sm">Mengelola operasional organisasi</p>
+                <h4 className="font-semibold text-gray-800 mb-2">Bendahara</h4>
+                <p className="text-gray-700 mb-2">Andi Yasbakhun, S.Pd.</p>
+                <p className="text-gray-600 text-sm">Mengelola keuangan organisasi</p>
               </div>
             </div>
           </div>
