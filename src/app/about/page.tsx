@@ -97,30 +97,29 @@ export default function AboutPage() {
           <h2 className="text-3xl font-bold text-gray-800 mb-6">Program Utama</h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
-              <h4 className="text-xl font-semibold text-blue-800 mb-3">📚 Program Pendidikan</h4>
+              <h4 className="text-xl font-semibold text-blue-800 mb-3">📚 Leadership Training Center</h4>
               <ul className="space-y-2 text-gray-700 text-sm">
-                <li>• Beasiswa penuh untuk pelajar berprestasi</li>
-                <li>• Bimbingan belajar gratis</li>
-                <li>• Pelatihan keterampilan akademik</li>
-                <li>• Mentoring untuk persiapan ujian</li>
+                <li>• Pelatihan kepemimpinan untuk pemuda</li>
+                <li>• Kelas pengembangan karakter</li>
+                <li>• Sesi coaching dan mentoring</li>
+                <li>• Pembentukan tim dan kolaborasi</li>
               </ul>
             </div>
             <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
-              <h4 className="text-xl font-semibold text-purple-800 mb-3">💼 Program Ekonomi</h4>
+              <h4 className="text-xl font-semibold text-purple-800 mb-3">📝 Kelas Menulis</h4>
               <ul className="space-y-2 text-gray-700 text-sm">
-                <li>• Pelatihan keterampilan usaha</li>
-                <li>• Modal usaha mikro</li>
-                <li>• Pendampingan bisnis</li>
-                <li>• Akses pasar untuk produk UMKM</li>
+                <li>• Teknik penulisan kreatif</li>
+                <li>• Latihan menulis artikel dan esai</li>
+                <li>• Penyusunan naskah dan proposal</li>
+                <li>• Penguatan kemampuan komunikasi tertulis</li>
               </ul>
             </div>
             <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
               <h4 className="text-xl font-semibold text-green-800 mb-3">💻 Program Digital</h4>
               <ul className="space-y-2 text-gray-700 text-sm">
-                <li>• Kursus digital marketing</li>
-                <li>• Pembuatan website untuk UMKM</li>
-                <li>• Pelatihan online</li>
-                <li>• Literasi digital</li>
+                <li>• Jasa pembuatan app</li>
+                <li>• Accounting</li>
+                <li>• Desain grafis</li>
               </ul>
             </div>
           </div>
@@ -172,7 +171,7 @@ export default function AboutPage() {
               </div>
               <div className="text-center">
                 <div className="bg-green-700 text-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">�</span>
+                  <span className="text-2xl">💰</span>
                 </div>
                 <h4 className="font-semibold text-gray-800 mb-2">Bendahara</h4>
                 <p className="text-gray-700 mb-2">Andi Yasbakhun, S.Pd.</p>
