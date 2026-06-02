@@ -9,6 +9,12 @@ if (!process.env.JWT_SECRET) {
   console.warn('Warning: JWT_SECRET is not set. Use a strong secret in .env.local');
 }
 
+export interface AuthPayload {
+  id: string;
+  email: string;
+  name?: string;
+}
+
 export function hashPassword(password: string) {
   return bcrypt.hashSync(password, 10);
 }
@@ -17,13 +23,13 @@ export function verifyPassword(password: string, hashedPassword: string) {
   return bcrypt.compareSync(password, hashedPassword);
 }
 
-export function signToken(payload: Record<string, unknown>) {
+export function signToken(payload: AuthPayload) {
   return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 }
 
-export function verifyToken(token: string) {
+export function verifyToken(token: string): AuthPayload | null {
   try {
-    return jwt.verify(token, JWT_SECRET) as { id: string; email: string };
+    return jwt.verify(token, JWT_SECRET) as AuthPayload;
   } catch {
     return null;
   }

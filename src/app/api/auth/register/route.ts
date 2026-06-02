@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       password: hashPassword(password),
     });
 
-    const token = signToken({ id: admin._id?.toString(), email: admin.email });
+    const token = signToken({ id: admin._id?.toString(), email: admin.email, name: admin.name });
     const response = NextResponse.json({ success: true, data: { name: admin.name, email: admin.email } }, { status: 201 });
     response.cookies.set('token', token, {
       httpOnly: true,

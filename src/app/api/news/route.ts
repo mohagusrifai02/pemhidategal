@@ -1,5 +1,6 @@
 import { connectDB } from '@/lib/mongodb';
 import { News } from '@/models/News';
+import { Admin } from '@/models/Admin';
 import { getAuthPayload } from '@/lib/auth';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -9,10 +10,19 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const category = searchParams.get('category');
     const limit = parseInt(searchParams.get('limit') || '10');
+    const mine = searchParams.get('mine') === 'true';
 
     let query: any = {};
     if (category && category !== 'semua') {
       query.category = category;
+    }
+
+    if (mine) {
+      const payload = getAuthPayload(request);
+      if (!payload?.id) {
+        return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+      }
+      query.authorId = payload.id;
     }
 
     const news = await News.find(query)
@@ -45,6 +55,10 @@ export async function POST(request: NextRequest) {
     }
 
     await connectDB();
+    const admin = await Admin.findById(payload.id);
+    if (!admin) {
+      return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+    }
     const body = await request.json();
 
     // Generate slug from title
@@ -57,6 +71,8 @@ export async function POST(request: NextRequest) {
     const news = await News.create({
       ...body,
       slug,
+      authorId: admin._id,
+      author: admin.name,
     });
 
     return NextResponse.json(

@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, message: 'Email atau password salah' }, { status: 401 });
     }
 
-    const token = signToken({ id: admin._id?.toString(), email: admin.email });
+    const token = signToken({ id: admin._id?.toString(), email: admin.email, name: admin.name });
     const response = NextResponse.json({ success: true, data: { name: admin.name, email: admin.email } }, { status: 200 });
     response.cookies.set('token', token, {
       httpOnly: true,

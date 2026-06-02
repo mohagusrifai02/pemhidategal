@@ -45,6 +45,7 @@ export default function Dashboard() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [authLoading, setAuthLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState<{ _id: string; name: string } | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -55,6 +56,10 @@ export default function Dashboard() {
           router.replace('/login');
           return;
         }
+
+        const data = await response.json();
+        setCurrentUser({ _id: data.data._id, name: data.data.name });
+        setFormData((prev) => ({ ...prev, author: data.data.name }));
       } catch {
         router.replace('/login');
         return;
@@ -87,7 +92,7 @@ export default function Dashboard() {
   const fetchNews = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/news');
+      const response = await fetch('/api/news?mine=true');
       const data = await response.json();
       if (data.success) {
         setNews(data.data);
@@ -131,7 +136,7 @@ export default function Dashboard() {
 
   const fetchNewsSummary = async () => {
     try {
-      const response = await fetch('/api/news/summary');
+      const response = await fetch('/api/news/summary?mine=true');
       const data = await response.json();
       if (data.success) {
         setTotalNewsCount(data.data.totalNews);
@@ -277,7 +282,7 @@ export default function Dashboard() {
       content: '',
       excerpt: '',
       image: '',
-      author: '',
+      author: currentUser?.name || '',
     });
     setEditingId(null);
     setShowForm(false);
@@ -474,7 +479,8 @@ export default function Dashboard() {
                         value={formData.author}
                         onChange={handleInputChange}
                         required
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                        disabled
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-700 cursor-not-allowed"
                       />
                     </div>
                   </div>
