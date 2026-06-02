@@ -35,13 +35,13 @@ export default function AboutPage() {
           <h2 className="text-3xl font-bold text-gray-800 mb-6">Sejarah Kami</h2>
           <div className="bg-gray-50 p-8 rounded-lg">
             <p className="text-gray-700 mb-4 text-lg">
-              Pemuda Hidayatullah (Pemhida) didirikan dengan visi untuk memberikan dampak positif kepada masyarakat, khususnya di kota Tegal. Sejak awal berdiri, organisasi ini telah berkomitmen untuk melayani masyarakat dengan dedikasi penuh dan sincerity.
+              Pemuda Hidayatullah (Pemhida) didirikan dengan visi berasaskan Islam sesuai al-qur'an dan as-sunnah serta menurut pemahaman Ahlus Sunnah wal jamaah, mengikuti manhaj Nabawi dengan pola dasar Sistematika Wahyu sebagai manhaj gerakan tarbiyah dan Dakwah. Manhaj perjuangan Pemuda Hidayatullah adalah jamaah imamah berdasarkan Khittah perjuangan Hidayatullah dengan visi adalah membangun generasi rabbani.
             </p>
             <p className="text-gray-700 mb-4 text-lg">
-              Perjalanan kami dimulai dari gerakan kecil yang digerakkan oleh para pemuda yang peduli dengan nasib masyarakat. Melalui kerja keras dan konsistensi, Pemhida berkembang menjadi organisasi sosial yang dipercaya oleh ribuan masyarakat di Tegal.
+              Organisasi ini awalnya bernama Syabab Hidayatullah berdiri pada hari kamis, tanggal 11 rabiul akhir 1421/13 juli 2000 di Balikpapan, Kalimantan Timur., yang bersamaan dengan gelaran Musyawarah Nasional Ke-1 Hidayatullah.
             </p>
             <p className="text-gray-700 text-lg">
-              Hari ini, Pemhida terus berinovasi dalam memberikan layanan terbaik untuk pemberdayaan masyarakat dan pengembangan generasi muda yang berkelanjutan.
+              Pemuda Hidayatullah terus melandaskan gerakannya pada semangat spiritualisme Islam sebagai upaya peneladanan ajaran agama kita yang luhur yang diiringi dengan tradisi intelektual, progresif dan beradab.
             </p>
           </div>
         </section>
@@ -51,16 +51,16 @@ export default function AboutPage() {
           <div className="bg-green-50 p-8 rounded-lg">
             <h3 className="text-2xl font-bold text-green-800 mb-4">Visi Kami</h3>
             <p className="text-gray-700 text-lg">
-              Menjadi organisasi sosial terdepan yang mampu memberdayakan masyarakat secara berkelanjutan, menciptakan perubahan positif, dan membawa harapan bagi generasi muda di Tegal dan sekitarnya.
+              Pemuda Hidayatullah berasaskan Islam sesuai al-qur'an dan as-sunnah serta menurut pemahaman Ahlus Sunnah wal jamaah, mengikuti manhaj Nabawi dengan pola dasar Sistematika Wahyu sebagai manhaj gerakan tarbiyah dan Dakwah. Manhaj perjuangan Pemuda Hidayatullah adalah jamaah imamah berdasarkan Khittah perjuangan Hidayatullah dengan visi adalah membangun generasi rabbani.
             </p>
           </div>
           <div className="bg-blue-50 p-8 rounded-lg">
             <h3 className="text-2xl font-bold text-blue-800 mb-4">Misi Kami</h3>
             <ul className="space-y-2 text-gray-700 text-lg">
-              <li>✓ Memberikan akses pendidikan berkualitas kepada semua kalangan</li>
-              <li>✓ Memberdayakan ekonomi masyarakat melalui pelatihan dan modal usaha</li>
-              <li>✓ Meningkatkan kesehatan dan kesejahteraan sosial masyarakat</li>
-              <li>✓ Membina generasi muda yang berkarakter dan kompeten</li>
+              <li>✓ Melahirkan kader pemuda bertauhid yang memiliki wawasan serta komitmen keumatan dan kebangsaan.</li>
+                <li>✓ Mewujudkan kekuatan pemuda Islam dalam berbagai bidang kehidupan.</li>
+                <li>✓ Melahirkan kader untuk gerakan amar ma'ruf nahi munkar.</li>
+                <li>✓ Menjaga harkat dan martabat pemuda Islam.</li>
             </ul>
           </div>
         </section>

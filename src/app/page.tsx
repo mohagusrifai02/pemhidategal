@@ -149,7 +149,7 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-4 py-20">
           <h1 className="text-5xl font-bold mb-4">Pemuda Hidayatullah Tegal</h1>
           <p className="text-xl mb-8 max-w-2xl">
-            Organisasi sosial yang peduli dengan pemberdayaan masyarakat, pendidikan, dan pembangunan berkelanjutan.
+            Organisasi kepemudaan nasional berbasis Islam di bawah naungan ormas Hidayatullah
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href="/news" className="px-6 py-3 bg-white text-green-700 font-semibold rounded-lg hover:bg-green-50">
@@ -170,12 +170,6 @@ export default function Home() {
             <p className="text-gray-600 mb-4 text-lg">
               <strong>Pemuda Hidayatullah (Pemhida)</strong> yaitu organisasi kepemudaan nasional berbasis Islam di bawah naungan ormas Hidayatullah. Organisasi ini mengusung tagline "Progresif Beradab" dan aktif membina generasi muda melalui program sosial, olahraga, hingga kerelawanan.
             </p>
-            <p className="text-gray-600 mb-4 text-lg">
-              Sejak berdiri, kami telah melayani ribuan masyarakat melalui program-program yang dirancang untuk meningkatkan kualitas hidup dan memberikan harapan bagi generasi muda.
-            </p>
-            <p className="text-gray-600 mb-6 text-lg">
-              Visi kami adalah Pemuda Hidayatullah berasaskan Islam sesuai al-qur'an dan as-sunnah serta menurut pemahaman Ahlus Sunnah wal jamaah, mengikuti manhaj Nabawi dengan pola dasar Sistematika Wahyu sebagai manhaj gerakan tarbiyah dan Dakwah.
-            </p>
             <Link href="/about" className="px-6 py-3 bg-green-700 text-white rounded-lg hover:bg-green-800 inline-block">
               Pelajari Lebih Lanjut
             </Link>
@@ -185,7 +179,7 @@ export default function Home() {
             <h3 className="text-2xl font-bold text-green-800 mb-2">Visi & Misi</h3>
             <div className="text-left">
               <h4 className="font-semibold text-green-700 mb-2">Visi:</h4>
-              <p className="text-gray-700 mb-4">Visi kami adalah Pemuda Hidayatullah berasaskan Islam sesuai al-qur'an dan as-sunnah serta menurut pemahaman Ahlus Sunnah wal jamaah, mengikuti manhaj Nabawi dengan pola dasar Sistematika Wahyu sebagai manhaj gerakan tarbiyah dan Dakwah. Manhaj perjuangan Pemuda Hidayatullah adalah jamaah imamah berdasarkan Khittah perjuangan Hidayatullah dengan visi adalah membangun generasi rabbani.</p>
+              <p className="text-gray-700 mb-4">Visi kami adalah Pemuda Hidayatullah berasaskan Islam sesuai al-qur'an dan as-sunnah serta menurut pemahaman Ahlus Sunnah wal jamaah, mengikuti manhaj Nabawi dengan pola dasar Sistematika Wahyu sebagai manhaj gerakan tarbiyah dan Dakwah.</p>
               <h4 className="font-semibold text-green-700 mb-2">Misi:</h4>
               <ul className="text-gray-700 space-y-1">
                 <li>✓ Melahirkan kader pemuda bertauhid yang memiliki wawasan serta komitmen keumatan dan kebangsaan.</li>
