@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
     const news = await News.create({
       ...body,
       slug,
-      authorId: admin._id,
+      authorId: admin._id?.toString(),
       author: admin.name,
     });
 

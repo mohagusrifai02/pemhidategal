@@ -9,7 +9,7 @@ export interface INews {
   excerpt: string;
   image: string;
   author: string;
-  authorId: mongoose.Schema.Types.ObjectId | string;
+  authorId?: string;
   publishedAt: Date;
   createdAt?: Date;
   updatedAt?: Date;
@@ -51,9 +51,8 @@ const newsSchema = new mongoose.Schema<INews>(
       required: [true, 'Silakan masukkan nama penulis'],
     },
     authorId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Admin',
-      required: true,
+      type: String,
+      required: false,
     },
     publishedAt: {
       type: Date,
